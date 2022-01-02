@@ -35,7 +35,7 @@ cp $EasyRSAPath/pki/private/$UUID.key $EasyRSAPath/pki/issued/$UUID.crt $EasyRSA
 cp $OpenVPNPath/ta.key -t $USER_DIR
 
 cat ${BASE_CONFIG} \
-    <(echo -e '<ca>') \
+    <(echo -e '\n<ca>') \
     $USER_DIR/ca.crt \
     <(echo -e '</ca>\n<cert>') \
     $USER_DIR/$UUID.crt \
@@ -44,5 +44,6 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     $USER_DIR/ta.key \
     <(echo -e '</tls-auth>') \
-    <(echo -e '\nremote $HOST_ADDR 1194') \
     > $USER_DIR/client.ovpn
+
+echo -e "\nremote $HOST_ADDR 1194" >> "$USER_DIR/client.ovpn"

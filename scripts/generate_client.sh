@@ -14,6 +14,11 @@ while [[ -e $USER_DIR ]]; do
     USER_DIR=$ClientConfigsPath/$UUID 
 done
 
+if [ -z "$HOST_ADDR" ]
+    then
+        HOST_ADDR='localhost'
+fi
+
 cd $EasyRSAPath
 
 
@@ -39,4 +44,5 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     $USER_DIR/ta.key \
     <(echo -e '</tls-auth>') \
+    <(echo -e '\nremote $HOST_ADDR 1194') \
     > $USER_DIR/client.ovpn

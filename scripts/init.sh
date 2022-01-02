@@ -56,5 +56,4 @@ fi
 
 cd /
 
-#openvpn --config /etc/openvpn/server.conf
-/bin/sh
+openvpn --config /etc/openvpn/server.conf

@@ -45,9 +45,7 @@ mkdir -p $USER_DIR
 cp $EasyRSAPath/pki/private/$UUID.key $EasyRSAPath/pki/issued/$UUID.crt -t $USER_DIR
 
 cat ${BASE_CONFIG} \
-    <(echo -e '\nremote') \
-    $IP \
-    <(echo -e ' 1174\n') \
+    <(echo -e '\nremote $IP 1174\n') \
     <(echo -e '\n<ca>') \
     $OpenVPNKeyPath/ca.crt \
     <(echo -e '</ca>\n<cert>') \

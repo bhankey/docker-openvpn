@@ -4,15 +4,25 @@ ClientConfigsPath='/etc/openvpn/client_configs'
 EasyRSAPath="/etc/openvpn/easy-rsa"
 OpenVPNKeyPath="/etc/openvpn/keys"
 
-UUID=$(uuidgen)
+if [ -z "$1" ] 
+    then 
+        UUID=$(uuidgen)
+else
+        UUID=$1
+fi
+
+echo "sertificate name for new client $UUID"
+
 USER_DIR=$ClientConfigsPath/$UUID 
 
 BASE_CONFIG=$ClientConfigsPath/base.conf
 
-while [[ -e $USER_DIR ]]; do
-    UUID=$(uuidgen)
-    USER_DIR=$ClientConfigsPath/$UUID 
-done
+# Проверяем на существование сертификата с таким же именем
+if [[ -e $USER_DIR ]] 
+    then
+        echo "sertifacete in dir $USER_DIR already created"
+        exit 1
+fi
 
 if [ -z "$HOST_ADDR" ]
     then
@@ -45,3 +55,5 @@ cat ${BASE_CONFIG} \
     > $USER_DIR/client.ovpn
 
 echo -e "\nremote $HOST_ADDR 1194" >> "$USER_DIR/client.ovpn"
+
+echo "sertificate created in $USER_DIR"

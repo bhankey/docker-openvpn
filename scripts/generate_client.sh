@@ -45,7 +45,7 @@ mkdir -p $USER_DIR
 cp $EasyRSAPath/pki/private/$UUID.key $EasyRSAPath/pki/issued/$UUID.crt -t $USER_DIR
 
 cat ${BASE_CONFIG} \
-    <(echo -e '\nremote $IP 1174\n') \
+    <(echo -e "\nremote $IP 1194\n") \
     <(echo -e '\n<ca>') \
     $OpenVPNKeyPath/ca.crt \
     <(echo -e '</ca>\n<cert>') \
@@ -56,7 +56,5 @@ cat ${BASE_CONFIG} \
     $OpenVPNKeyPath/ta.key \
     <(echo -e '</tls-auth>') \
     > $USER_DIR/client.ovpn
-
-echo -e "\nremote $HOST_ADDR 1194" >> "$USER_DIR/client.ovpn"
 
 echo "sertificate created in $USER_DIR"

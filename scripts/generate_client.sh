@@ -17,6 +17,8 @@ USER_DIR=$ClientConfigsPath/$UUID
 
 BASE_CONFIG=$ClientConfigsPath/base.conf
 
+IP=$(wget -O - -q https://checkip.amazonaws.com)
+
 # Проверяем на существование сертификата с таким же именем
 if [[ -e $USER_DIR ]] 
     then
@@ -43,6 +45,9 @@ mkdir -p $USER_DIR
 cp $EasyRSAPath/pki/private/$UUID.key $EasyRSAPath/pki/issued/$UUID.crt -t $USER_DIR
 
 cat ${BASE_CONFIG} \
+    <(echo -e '\nremote') \
+    $IP \
+    <(echo -e ' 1174\n') \
     <(echo -e '\n<ca>') \
     $OpenVPNKeyPath/ca.crt \
     <(echo -e '</ca>\n<cert>') \

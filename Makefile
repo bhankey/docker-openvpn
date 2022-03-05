@@ -11,4 +11,4 @@ run:
 
 generate_client: 
 	 $(RUN) ./scripts/generate_client.sh $(CLIENT_NAME)
-	 $(RUN) cat /etc/openvpn/client_configs/$(CLIENT_NAME)/client.ovpn
+	 $(RUN) cat /etc/openvpn/client_configs/$(CLIENT_NAME)/client.ovpn > (TARGET_FILE) client.ovpn

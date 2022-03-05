@@ -1,13 +1,14 @@
 
+DOCKER_NAME = openvpn_server
 
+RUN = docker exec $(DOCKER_NAME)
 
 build:
-	docker build . -t "openvpn_server"
+	docker build . -t "$(DOCKER_NAME)"
 
 run:
-	docker run --name=openvpn_server -d --cap-add=NET_ADMIN -p 1194:1194/udp openvpn_server:latest
+	docker run --name=$(DOCKER_NAME) -d --cap-add=NET_ADMIN -p 1194:1194/udp openvpn_server:latest
 
 generate_client: 
-	 docker exec -it openvpn_server /bin/sh
-	 ./scripts/generate_client.sh $(CLIENT_NAME)
-	 cat /etc/openvpn/client_configs/$(CLIENT_NAME)/client.ovpn
+	 $(RUN) ./scripts/generate_client.sh $(CLIENT_NAME)
+	 $(RUN) cat /etc/openvpn/client_configs/$(CLIENT_NAME)/client.ovpn
